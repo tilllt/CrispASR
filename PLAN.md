@@ -1,5 +1,15 @@
 # CrispASR — Pending work
 
+## CLAIMED 2026-08-28 — server /progress endpoint for polyschnack (Change 150)
+
+Worktree: `.claude/worktrees/progress-endpoint`.
+Add a `/progress` poll endpoint to `examples/cli/crispasr_server.cpp` that
+exposes the whisper progress callback (0–100) per active job, so the
+polyschnack webapp can show honest progress for diarization and all
+crispr-* ASR backends. Global atomic is fine (one job per container); note
+per-request scoping as future work for `--server-workers` concurrency.
+Commit + push claim, then implement.
+
 ## CLAIMED 2026-08-13 — PR #347 GGUF weight-mapping release review
 
 Worktree: `.claude/worktrees/review-pr-352`.
