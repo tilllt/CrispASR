@@ -28,6 +28,13 @@ struct mel_band_roformer_params {
     int n_threads;  // 0 = auto
     bool use_gpu;   // attempt GPU acceleration (Metal/CUDA); CPU otherwise
     int gpu_device; // GPU device index
+    // Change 176: feature toggles (defaults keep the validated CPU path).
+    // Environment overrides still apply on top of these (CRISPASR_MELBAND_*),
+    // so CLI users keep the documented A/B flags; API callers set fields here.
+    bool use_graph;      // 1 = ggml-graph band-split + transformer layers (GPU-capable)
+    bool use_fused;      // 1 = ONE fused graph: band_split + stack + mask estimator (Phase 5)
+    int segment_seconds; // Demucs-style split length; <=0 = default (10 s), 1 = per-second
+    bool no_segment;     // 1 = whole-buffer forward even for long audio (A/B)
 };
 
 // Separation result: one waveform per source. For the vocals model the sources

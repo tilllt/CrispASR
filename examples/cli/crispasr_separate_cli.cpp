@@ -94,6 +94,10 @@ int crispasr_run_separate(const whisper_params& params) {
         std::vector<std::vector<float>> stereo;
 
         if (arch == "mel-band-roformer") {
+            // Feature toggles come from mel_band_roformer_default_params()
+            // (validated CPU path) + CRISPASR_MELBAND_* env overrides — same
+            // pattern as htdemucs. API callers set the params struct directly
+            // (use_graph/use_gpu/segment_seconds/no_segment/gpu_device).
             auto* ctx = mel_band_roformer_init_from_file(model.c_str(), mel_band_roformer_default_params());
             if (!ctx) {
                 rc = 2;
